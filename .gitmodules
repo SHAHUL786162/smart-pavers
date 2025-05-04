@@ -1,0 +1,3 @@
+[submodule "pavers/pavers/yolov5"]
+	path = pavers/pavers/yolov5
+	url = https://github.com/SHAHUL786162/smart-pavers.git
