@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+build/
+dist/
+
+# System
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Database
+*.db
+*.sqlite3
+# Python virtual environments
+venv/
+venv310/
+pavers/venv/
+pavers/pavers/venv310/
