@@ -11,8 +11,8 @@ import cv2
 import numpy as np
 import os
 
-# --- App and DB Setup ---
-app = Flask(__name__)  # ✅ FIXED HERE
+
+app = Flask(__name__)  
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///reports.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -73,9 +73,9 @@ def send_email(subject, body):
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         server.send_message(msg)
         server.quit()
-        print("✅ Email sent.")
+        print(" Email sent.")
     except Exception as e:
-        print("❌ Email error:", e)
+        print(" Email error:", e)
 
 def get_exif_data(image):
     exif_data = {}
@@ -149,7 +149,7 @@ def analyze_detections(detections):
 # --- API Routes ---
 @app.route('/')
 def home():
-    return "🚀 Smart Pavers Backend Running!"
+    return " Smart Pavers Backend Running!"
 
 @app.route('/report', methods=['POST'])
 def receive_report():
@@ -178,10 +178,10 @@ def receive_report():
 
             if priority >= 5:
                 send_email(
-                    "🚨 Urgent Road Defect Detected",
+                    " Urgent Road Defect Detected",
                     f"Pothole(s) Detected\nSeverity: {severity}\nPriority: {priority}\nLocation: ({latitude}, {longitude})\nTimestamp: {timestamp}"
                 )
-            return jsonify({"message": "✅ Report saved", "severity": severity, "priority": priority}), 201
+            return jsonify({"message": "Report saved", "severity": severity, "priority": priority}), 201
 
         elif 'image' in request.files:
             image_file = request.files['image']
@@ -231,11 +231,11 @@ def receive_report():
 
             if priority >= 5:
                 send_email(
-                    "🚨 Urgent Road Defect Detected",
+                    " Urgent Road Defect Detected",
                     f"Pothole(s) Detected\nSeverity: {severity}\nPriority: {priority}\nLocation: ({latitude}, {longitude})\nTimestamp: {timestamp}"
                 )
 
-            return jsonify({"message": "✅ Image processed", "severity": severity, "priority": priority}), 201
+            return jsonify({"message": "Image processed", "severity": severity, "priority": priority}), 201
 
         else:
             return jsonify({"error": "Send either JSON or image"}), 400
@@ -253,12 +253,12 @@ def clear_reports():
     try:
         num_rows_deleted = db.session.query(Report).delete()
         db.session.commit()
-        return jsonify({"message": f"✅ Cleared {num_rows_deleted} reports"}), 200
+        return jsonify({"message": f"Cleared {num_rows_deleted} reports"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 # --- Run the Server ---
-if __name__ == '__main__':  # ✅ FIXED HERE
+if __name__ == '__main__': 
     with app.app_context():
         db.create_all()
     app.run(debug=True, host='0.0.0.0', port=5000)
